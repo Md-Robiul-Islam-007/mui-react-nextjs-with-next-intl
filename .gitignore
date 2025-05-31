@@ -1,0 +1,13 @@
+/node_modules
+/.next/
+.DS_Store
+tsconfig.tsbuildinfo
+/test-results/
+/playwright-report/
+/playwright/.cache/
+out
+dictionary/en.d.json.ts
+
+# Playwright
+node_modules/
+/blob-report/

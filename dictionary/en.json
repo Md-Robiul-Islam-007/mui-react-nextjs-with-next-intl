@@ -1,0 +1,70 @@
+{
+  "Error": {
+    "description": "<p>We've unfortunately encountered an error.</p><p>You can try to <retry>reload the page</retry> you were visiting.</p>",
+    "title": "Something went wrong!"
+  },
+  "IndexPage": {
+    "title": "Next.js 15 setup with Material UI and next-intl",
+    "description": "This is a basic example that demonstrates the usage of <code>next-intl</code> with the Next.js App Router. Try changing the locale in the top right corner and see how the content changes."
+  },
+  "LocaleLayout": {
+    "title": "Next.js 15 setup with Material UI and next-intl | Template-Forest"
+  },
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, de {🇩🇪 Deutsch} en {🇺🇸 English} other {Unknown}}"
+  },
+  "Manifest": {
+    "name": "Next.js 15 setup with Material UI and next-intl"
+  },
+  "Navigation": {
+    "home": {
+      "title": "Home",
+      "href": "/"
+    },
+    "pathnames": {
+      "title": "Pathnames",
+      "href": "/pathnames"
+    }
+  },
+  "Settings": {
+    "Profile": {
+      "title": "Profile",
+      "href": "/profile"
+    },
+    "Account": {
+      "title": "Account",
+      "href": "/account"
+    },
+    "Dashboard": {
+      "title": "Dashboard",
+      "href": "/dashboard"
+    },
+    "Logout": {
+      "title": "Logout",
+      "href": "/logout"
+    }
+  },
+  "NotFoundPage": {
+    "description": "Please double-check the browser address bar or use the navigation to go to a known page.",
+    "title": "Page not found"
+  },
+  "PageLayout": {
+    "links": {
+      "docs": {
+        "description": "Learn more about next-intl in the official docs.",
+        "href": "https://next-intl.dev",
+        "title": "Docs"
+      },
+      "source": {
+        "description": "Browse the source code of this example on GitHub.",
+        "href": "#",
+        "title": "Source code"
+      }
+    }
+  },
+  "PathnamesPage": {
+    "description": "<p>The pathnames are internationalized too.</p><p>If you're using the default language English, you'll see <code>/en/pathnames</code> in the browser address bar on this page.</p><p>If you change the locale to German, the URL is localized accordingly (<code>/de/pfadnamen</code>).</p>",
+    "title": "Pathnames"
+  }
+}
