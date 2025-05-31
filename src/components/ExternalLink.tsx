@@ -20,6 +20,7 @@ export default function ExternalLink({description, href, title}: Props) {
         borderRadius: 3,
         p: 3,
         transition: 'border-color 0.2s ease-in-out',
+        textDecoration: 'none',
         ':hover': {
           borderColor: theme.palette.primary.main
         }

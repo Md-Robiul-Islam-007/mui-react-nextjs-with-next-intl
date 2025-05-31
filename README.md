@@ -2,7 +2,7 @@
 
 An example that showcases basic usage of `next-intl` with the App Router, including internationalized routing with Material UI.
 
-[Demo](#)
+[Demo](https://mui-react-nextjs-with-next-intl.vercel.app/)
 
 ## Deploy your own
 
