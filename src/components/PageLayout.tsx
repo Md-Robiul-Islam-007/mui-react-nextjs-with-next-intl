@@ -15,7 +15,9 @@ export default function PageLayout({children, title}: Props) {
     <Box sx={{py: 5, width: '100%', minHeight: 'calc(100vh - 75px)'}}>
       <Container maxWidth="lg">
         <Typography variant="h1">{title}</Typography>
-        <Box>{children}</Box>
+      </Container>
+      <Box>{children}</Box>
+      <Container maxWidth="lg">
         <Grid container sx={{mt: 'auto', pt: 10}} spacing={4}>
           <Grid size={{xs: 12, md: 6}}>
             <ExternalLink

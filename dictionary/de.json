@@ -25,6 +25,10 @@
     "pathnames": {
       "title": "Pfadnamen",
       "href": "/pathnames"
+    },
+    "redux": {
+      "title": "Redux",
+      "href": "/redux"
     }
   },
   "Settings": {
@@ -66,5 +70,19 @@
   "PathnamesPage": {
     "description": "<p>Auch die Pfadnamen sind internationalisiert.</p><p>Wenn du die Standardsprache Englisch verwendest, siehst du <code>/en/pathnames</code> in der Adressleiste des Browsers auf dieser Seite.</p><p>Wenn du die Sprache auf Deutsch änderst, wird die URL entsprechend lokalisiert (<code>/de/pfadnamen</code>).</p>",
     "title": "Pfadnamen"
+  },
+  "ReduxPage": {
+    "title": "Redux-Setup mit Material UI und next-intl",
+    "description": "<p>Dies ist ein einfacher Beispiel, der die Verwendung von <code>next-intl</code> mit <code>next-redux-wrapper</code> demonstriert.</p>",
+    "counter": {
+      "title": "Redux Counter Wrapper"
+    },
+    "boolean": {
+      "title": "Redux Boolean Wrapper",
+      "label": "Verantwortung zuweisen",
+      "name": "Gilad Gray",
+      "on": "Boolean ist jetzt aktiviert",
+      "off": "Boolean ist jetzt deaktiviert"
+    }
   }
 }

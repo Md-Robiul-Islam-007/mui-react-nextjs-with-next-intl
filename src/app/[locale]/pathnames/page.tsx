@@ -2,6 +2,7 @@ import {Locale, useTranslations} from 'next-intl';
 import {setRequestLocale} from 'next-intl/server';
 import {use} from 'react';
 import PageLayout from '@/components/PageLayout';
+import {Container} from '@mui/material';
 
 type Props = {
   params: Promise<{locale: Locale}>;
@@ -17,14 +18,14 @@ export default function PathnamesPage({params}: Props) {
 
   return (
     <PageLayout title={t('title')}>
-      <div className="max-w-[490px]">
+      <Container maxWidth="lg">
         {t.rich('description', {
           p: (chunks) => <p className="mt-4">{chunks}</p>,
           code: (chunks) => (
             <code className="font-mono text-white">{chunks}</code>
           )
         })}
-      </div>
+      </Container>
     </PageLayout>
   );
 }

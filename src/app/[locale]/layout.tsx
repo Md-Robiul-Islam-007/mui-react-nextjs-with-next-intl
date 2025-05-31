@@ -16,6 +16,7 @@ import {AppRouterCacheProvider} from '@mui/material-nextjs/v15-appRouter';
 import {Roboto} from 'next/font/google';
 import {NextThemeConfigProvider, NextThemesProvider} from '@/next-theme';
 import {CssBaseline} from '@mui/material';
+import StoreProvider from '@/redux/StoreProvider';
 
 type Props = {
   children: ReactNode;
@@ -55,23 +56,25 @@ export default async function LocaleLayout({children, params}: Props) {
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} dir={direction}>
-      <body lang={locale} className={roboto.variable}>
-        <AppRouterCacheProvider options={{enableCssLayer: true}}>
-          <NextIntlClientProvider>
-            <NextThemesProvider>
-              <NextThemeConfigProvider direction={direction}>
-                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                <CssBaseline />
-                <Navigation />
-                {children}
+    <StoreProvider>
+      <html lang={locale} dir={direction}>
+        <body lang={locale} className={roboto.variable}>
+          <AppRouterCacheProvider options={{enableCssLayer: true}}>
+            <NextIntlClientProvider>
+              <NextThemesProvider>
+                <NextThemeConfigProvider direction={direction}>
+                  {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                  <CssBaseline />
+                  <Navigation />
+                  {children}
 
-                <Toaster richColors position="top-right" />
-              </NextThemeConfigProvider>
-            </NextThemesProvider>
-          </NextIntlClientProvider>
-        </AppRouterCacheProvider>
-      </body>
-    </html>
+                  <Toaster richColors position="top-right" />
+                </NextThemeConfigProvider>
+              </NextThemesProvider>
+            </NextIntlClientProvider>
+          </AppRouterCacheProvider>
+        </body>
+      </html>
+    </StoreProvider>
   );
 }
