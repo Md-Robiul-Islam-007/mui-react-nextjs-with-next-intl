@@ -11,3 +11,6 @@ dictionary/en.d.json.ts
 # Playwright
 node_modules/
 /blob-report/
+
+# .env
+.env*

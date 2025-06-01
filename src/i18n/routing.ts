@@ -6,7 +6,13 @@ export const routing = defineRouting({
   pathnames: {
     '/': '/',
     '/pathnames': {
-      de: '/pfadnamen'
+      de: '/pathnames'
+    },
+    '/redux': {
+      de: '/redux'
+    },
+    '/dashboard': {
+      de: '/dashboard'
     }
   }
 });

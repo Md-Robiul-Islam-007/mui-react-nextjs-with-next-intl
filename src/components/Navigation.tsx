@@ -16,20 +16,27 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import useThemeToggle from '@/next-theme/useThemeToggle';
 import IconifyIcon from '@/IconifyIcon';
+import {signOut, useSession} from 'next-auth/react';
+import {CircularProgress} from '@mui/material';
+import {Session} from 'next-auth';
+import {toggle as signInModelToggle} from '@/redux/store/signInModel';
+import {useDispatch} from 'react-redux';
+import {toggle} from '@/redux/store/settingsSlice';
 
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-export default function Navigation() {
+export default function Navigation({session}: {session: Session | null}) {
   const t = useTranslations('Navigation');
   const st = useTranslations('Settings');
+  const authT = useTranslations('signInModel');
   const messages = useMessages();
+  const dispatch = useDispatch();
   const navigation = Object.keys(messages.Navigation);
   const settings = Object.keys(messages.Settings);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const {toggleTheme, mode} = useThemeToggle();
+  const {status} = useSession();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -119,24 +126,24 @@ export default function Navigation() {
             </Menu>
           </Box>
           <AdbIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}} />
-          <Typography
-            variant="h5"
-            noWrap
-            component={NavigationLink}
-            href="/"
-            sx={{
-              mr: 2,
-              display: {xs: 'flex', md: 'none'},
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none'
-            }}
-          >
-            LOGO
-          </Typography>
+          <NavigationLink href={'/'}>
+            <Typography
+              variant="h5"
+              noWrap
+              sx={{
+                mr: 2,
+                display: {xs: 'flex', md: 'none'},
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none'
+              }}
+            >
+              LOGO
+            </Typography>
+          </NavigationLink>
           <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
             {navigation?.map((page) => (
               <Button
@@ -168,45 +175,111 @@ export default function Navigation() {
           >
             {/* Locale switcher */}
             <LocaleSwitcher />
-            {/* Theme toggle */}
-            <IconButton sx={{ml: 1}} onClick={() => toggleTheme()}>
-              {mode === 'dark' ? (
-                <IconifyIcon icon="eva:moon-fill" />
-              ) : (
-                <IconifyIcon icon="eva:sun-fill" />
-              )}
+            {/* Settings drawer button */}
+            <IconButton sx={{ml: 1}} onClick={() => dispatch(toggle())}>
+              <IconifyIcon icon="eva:settings-2-fill" />
             </IconButton>
             {/* User menu */}
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{mt: '45px'}}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings?.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{textAlign: 'center'}}>
-                    {/* @ts-expect-error: st function returns a string that may not be a valid key for the Typography component */}
-                    {st(`${setting}.title`)}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            {status === 'loading' ? (
+              <CircularProgress size={24} />
+            ) : status === 'unauthenticated' && !session ? (
+              <Button
+                variant="contained"
+                onClick={() => dispatch(signInModelToggle())}
+              >
+                {authT('signIn')}
+              </Button>
+            ) : (
+              status === 'authenticated' &&
+              session?.user && (
+                <>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                      <Avatar
+                        alt="Remy Sharp"
+                        src="/static/images/avatar/2.jpg"
+                      />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{
+                      mt: '45px',
+                      '& .MuiMenu-paper': {
+                        minWidth: '150px'
+                      }
+                    }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right'
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings?.map((setting) => {
+                      // @ts-expect-error: `setting` is a key of `messages.Settings`
+                      if (st(`${setting}.href`) === '/logout') {
+                        return (
+                          <MenuItem
+                            key={setting}
+                            onClick={() => {
+                              handleCloseUserMenu();
+                              // @ts-expect-error: `setting` is a key of `messages.Settings`
+                              if (st(`${setting}.href`) === '/logout') {
+                                signOut({
+                                  callbackUrl: '/'
+                                });
+                              }
+                            }}
+                            sx={{
+                              display: 'block',
+                              textTransform: 'capitalize',
+                              width: '100%',
+                              color: 'text.primary',
+                              justifyContent: 'start',
+                              alignItems: 'start',
+                              px: '18px !important',
+                              '&:hover': {
+                                backgroundColor: 'error.light',
+                                color: 'error.contrastText'
+                              }
+                            }}
+                          >
+                            <Typography sx={{textAlign: 'left'}}>
+                              {/* @ts-expect-error: st function returns a string that may not be a valid key for the Typography component */}
+                              {st(`${setting}.title`)}
+                            </Typography>
+                          </MenuItem>
+                        );
+                      } else {
+                        return (
+                          // @ts-expect-error: `setting` is a key of `messages.Settings`
+                          <MenuItem
+                            key={setting}
+                            component={NavigationLink}
+                            // @ts-expect-error: `setting` is a key of `messages.Settings`
+                            href={st(`${setting}.href`)}
+                            hrefLang="en"
+                            onClick={() => {
+                              handleCloseUserMenu();
+                            }}
+                          >
+                            {/* @ts-expect-error: st function returns a string that may not be a valid key for the Typography component */}
+                            {st(`${setting}.title`)}
+                          </MenuItem>
+                        );
+                      }
+                    })}
+                  </Menu>
+                </>
+              )
+            )}
           </Box>
         </Toolbar>
       </Container>
