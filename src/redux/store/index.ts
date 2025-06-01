@@ -1,13 +1,20 @@
 import {configureStore} from '@reduxjs/toolkit';
 import counterSlice from './todosSlice';
 import booleanSlice from './booleanSlice';
+import signInModel from './signInModel';
+import settingsSlice from './settingsSlice';
+import {persistSettingsMiddleware} from './middleware';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       counter: counterSlice,
-      boolean: booleanSlice
-    }
+      boolean: booleanSlice,
+      signInModel: signInModel,
+      settings: settingsSlice
+    },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(persistSettingsMiddleware)
   });
 };
 

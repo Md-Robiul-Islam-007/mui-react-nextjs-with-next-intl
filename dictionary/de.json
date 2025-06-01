@@ -84,5 +84,31 @@
       "on": "Boolean ist jetzt aktiviert",
       "off": "Boolean ist jetzt deaktiviert"
     }
+  },
+  "signInModel": {
+    "title": "Willkommen zurück!",
+    "description": "Bitte melden Sie sich an, um fortzufahren.",
+    "signIn": "Anmelden",
+    "signOut": "Abmelden",
+    "forms": {
+      "username": "E-Mail",
+      "username_placeholder": "Geben Sie Ihre E-Mail ein",
+      "password": "Passwort",
+      "password_placeholder": "Geben Sie Ihr Passwort ein",
+      "forgot_password": {
+        "title": "Passwort vergessen?",
+        "href": "/forgot-password"
+      },
+      "submit": "Anmelden",
+      "loading": "Anmeldung läuft...",
+      "register": {
+        "title": "Sie haben noch kein Konto?",
+        "label": "Registrieren",
+        "href": "/register"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Willkommen in Ihrem Dashboard"
   }
 }

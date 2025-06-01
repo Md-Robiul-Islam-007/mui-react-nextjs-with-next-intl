@@ -84,5 +84,31 @@
       "on": "Boolean is now on",
       "off": "Boolean is now off"
     }
+  },
+  "signInModel": {
+    "title": "Welcome Back!",
+    "description": "Please sign in to continue.",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "forms": {
+      "username": "Email",
+      "username_placeholder": "Enter your email",
+      "password": "Password",
+      "password_placeholder": "Enter your password",
+      "forgot_password": {
+        "title": "Forgot your password?",
+        "href": "/forgot-password"
+      },
+      "submit": "Sign In",
+      "loading": "Signing In...",
+      "register": {
+        "title": "Don't have an account?",
+        "label": "Register",
+        "href": "/register"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Welcome to your dashboard"
   }
 }

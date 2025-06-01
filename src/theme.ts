@@ -244,7 +244,32 @@ const darkTheme = createTheme({
   components: {}
 });
 
-export {darkTheme, lightTheme};
+const getTheme = (mode: 'light' | 'dark', primaryColor: string) => {
+  if (mode === 'light') {
+    return {
+      ...lightTheme,
+      palette: {
+        ...lightTheme.palette,
+        primary: {
+          ...lightTheme.palette.primary,
+          main: primaryColor
+        }
+      }
+    };
+  }
+  return {
+    ...darkTheme,
+    palette: {
+      ...darkTheme.palette,
+      primary: {
+        ...darkTheme.palette.primary,
+        main: primaryColor
+      }
+    }
+  };
+};
+
+export {darkTheme, lightTheme, getTheme};
 
 const theme = {
   dark: darkTheme,
